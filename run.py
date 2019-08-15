@@ -10,6 +10,7 @@ import argparse
 import sys
 
 
+
 def string2date(string1):
     return datetime.datetime.strptime(string1, "%d.%m.%Y, %H:%M:%S")
 
@@ -25,7 +26,7 @@ def filter_todos(entry):
 
 
 def twitchcrawler(parsed_args):
-    crawl(TwitchSpider,
+    crawlTwitch(TwitchSpider,
           json.dumps(vars(parsed_args)),
           {
         "ITEM_PIPELINES": {'twitchCrawler.pipelines.MongoPipelineModpack': 300},
@@ -134,6 +135,8 @@ class TwitchCrawler:
 
 
 if __name__ == '__main__':
-
-    cwlr = TwitchCrawler(sys.argv[1:])
-    cwlr.run()
+    try:
+        cwlr = TwitchCrawler(sys.argv[1:])
+        cwlr.run()
+    except error:
+        print(error)
