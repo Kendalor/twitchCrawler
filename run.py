@@ -140,3 +140,4 @@ if __name__ == '__main__':
         cwlr.run()
     except error:
         print(error)
+        exit()
