@@ -138,7 +138,6 @@ class TwitchCrawler:
 if __name__ == '__main__':
     try:
         cwlr = TwitchCrawler(sys.argv[1:])
-        cwlr.run()
     except error:
-        print(error)
         exit()
+    cwlr.run()
