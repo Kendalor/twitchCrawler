@@ -114,6 +114,7 @@ class TwitchCrawler:
                             default=21600,
                             help="Wait in Seconds between Complete Crawls")
         self.parsed_args = parser.parse_args(args)
+        print(self.parsed_args)
         self.mongodb_client = pymongo.MongoClient(self.parsed_args.address,
                                           username=self.parsed_args.username,
                                           password=self.parsed_args.password,
