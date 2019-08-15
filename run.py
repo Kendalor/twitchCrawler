@@ -140,4 +140,4 @@ if __name__ == '__main__':
         cwlr = TwitchCrawler(sys.argv[1:])
     except error:
         exit()
-    #cwlr.run()
+    cwlr.run()
