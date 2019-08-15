@@ -110,7 +110,7 @@ class TwitchCrawler:
                             type=int,
                             dest="wait",
                             required=False,
-                            default=3600,
+                            default=21600,
                             help="Wait in Seconds between Complete Crawls")
         self.parsed_args = parser.parse_args(args)
         self.mongodb_client = pymongo.MongoClient(self.parsed_args.address,

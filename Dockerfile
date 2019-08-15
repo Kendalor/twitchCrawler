@@ -1,7 +1,13 @@
 FROM python
+ENV MONGODB_ADRESS=dummy
+ENV MONGODB_USERNAME=dummy
+ENV MONGODB_PASSWORD=dummy
+ENV MONGODB_AUTHSOURCE=dummy
+ENV MONGODB_AUTHMECHANISM=SCRAM-SHA-256
+ENV WAIT=21600
 COPY . /app
 WORKDIR /app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-EXPOSE 5000
-CMD python run.py
+
+CMD python run.py -address $MONGODB_ADRESS -user $MONGODB_USERNAME -pw $MONGODB_PASSWORD -authSource $MONGODB_AUTHSOURCE -authMechanism $MONGODB_AUTHMECHANISM -wait $WAIT
