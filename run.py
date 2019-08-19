@@ -61,6 +61,7 @@ def buildCrawler(parsed_args):
     todos = [entry for entry in watchlist if filter_todos(entry)]
     for job in todos:
         url = job["siteLink"]+'/files/all'
+        time.sleep(3)
         try:
             p = Process(target=crawlMods, args=(BuildSpider, json.dumps(vars(parsed_args)), {
                 "ITEM_PIPELINES": {'twitchCrawler.pipelines.MongoPipelineBuilds': 300},
@@ -68,9 +69,9 @@ def buildCrawler(parsed_args):
                 "ROBOTSTXT_OBEY": True}, json.dumps([url])))
             p.start()
             p.join()
-
-            col.update_one({"name": job["name"]}, {"$set": {"lastScanned": datetime.datetime.now().strftime("%d.%m.%Y, %H:%M:%S")}}, upsert=True)
-        except():
+            if p.exitcode is 0:
+                col.update_one({"name": job["name"]}, {"$set": {"lastScanned": datetime.datetime.now().strftime("%d.%m.%Y, %H:%M:%S")}}, upsert=True)
+        except Exception as e:
             print("Failed to Crawl: " + url)
 
 
@@ -125,19 +126,19 @@ class TwitchCrawler:
     def run(self):
         while True:
             args = self.parsed_args
-            p1 = Process(target=twitchcrawler, args=(args,))
+            #p1 = Process(target=twitchcrawler, args=(args,))
             p2 = Process(target=buildCrawler, args=(args,))
-            p1.start()
+            #p1.start()
             p2.start()
-            p1.join()
+            #p1.join()
             p2.join()
-            print("Waiting 60 Seconds")
+            print("Waiting "+str(self.parsed_args.wait)+" Seconds")
             time.sleep(self.parsed_args.wait)
 
 
 if __name__ == '__main__':
     try:
         cwlr = TwitchCrawler(sys.argv[1:])
-    except error:
+    except:
         exit()
     cwlr.run()

@@ -14,6 +14,11 @@ def grepVersion(inString):
     m = re.search("[0-9]+\.[0-9]+\.[0-9]+", inString)
     return m.group()
 
+def serverFileEdit(inString):
+    if inString is not None:
+        return inString+'/file'
+    else:
+        return None
 
 class Modpack(scrapy.Item):
 
@@ -34,3 +39,5 @@ class ModpackBuild(scrapy.Item):
 class ModpackBuildItemLoader(scrapy.loader.ItemLoader):
     default_output_processor = TakeFirst()
     version_in = MapCompose(grepVersion)
+    clientFileLink_in = MapCompose(serverFileEdit)
+    serverFileLink_in = MapCompose(serverFileEdit)
