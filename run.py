@@ -126,11 +126,11 @@ class TwitchCrawler:
     def run(self):
         while True:
             args = self.parsed_args
-            #p1 = Process(target=twitchcrawler, args=(args,))
+            p1 = Process(target=twitchcrawler, args=(args,))
             p2 = Process(target=buildCrawler, args=(args,))
-            #p1.start()
+            p1.start()
             p2.start()
-            #p1.join()
+            p1.join()
             p2.join()
             print("Waiting "+str(self.parsed_args.wait)+" Seconds")
             time.sleep(self.parsed_args.wait)
