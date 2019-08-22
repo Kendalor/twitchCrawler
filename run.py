@@ -15,7 +15,7 @@ def string2date(string1):
     return datetime.datetime.strptime(string1, "%d.%m.%Y, %H:%M:%S")
 
 def filter_todos(entry):
-    print(entry,type(entry))
+    print(entry, type(entry))
     if entry["lastScanned"] is '':
         return True
     else:
@@ -127,10 +127,10 @@ class TwitchCrawler:
         while True:
             args = self.parsed_args
             p1 = Process(target=twitchcrawler, args=(args,))
-            p2 = Process(target=buildCrawler, args=(args,))
             p1.start()
-            p2.start()
             p1.join()
+            p2 = Process(target=buildCrawler, args=(args,))
+            p2.start()
             p2.join()
             print("Waiting "+str(self.parsed_args.wait)+" Seconds")
             time.sleep(self.parsed_args.wait)

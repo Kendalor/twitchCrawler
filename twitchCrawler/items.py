@@ -22,10 +22,12 @@ def serverFileEdit(inString):
 
 class Modpack(scrapy.Item):
 
-    name = scrapy.Field(output_processor=TakeFirst())
-    author = scrapy.Field(output_processor=TakeFirst())
-    lastUpdated = scrapy.Field(output_processor=TakeFirst())
-    siteLink = scrapy.Field(output_processor=TakeFirst())
+    name = scrapy.Field(default=None, output_processor=TakeFirst())
+    author = scrapy.Field(default=None, output_processor=TakeFirst())
+    lastUpdated = scrapy.Field(default=None, output_processor=TakeFirst())
+    lastScanned = scrapy.Field(default='', output_processor=TakeFirst())
+    onWatchlist = scrapy.Field(default=True, output_processor=TakeFirst())
+    siteLink = scrapy.Field(default=None, output_processor=TakeFirst())
 
 
 class ModpackBuild(scrapy.Item):

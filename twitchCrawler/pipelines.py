@@ -30,6 +30,8 @@ class MongoPipelineModpack(object):
 
     def process_item(self, item, spider):
         db_entry = self.col.find_one({"name": item["name"]})
+        item.setdefault('lastScanned', '')
+        item.setdefault('onWatchlist', True)
         if db_entry is not None:
             lastupdated_old = datetime.strptime(db_entry["lastUpdated"], "%d.%m.%Y, %H:%M:%S")
             lastupdated_new = datetime.strptime(item["lastUpdated"], "%d.%m.%Y, %H:%M:%S")
