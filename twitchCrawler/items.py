@@ -12,7 +12,14 @@ import re
 
 def grepVersion(inString):
     m = re.search("[0-9]+\.[0-9]+\.[0-9]+", inString)
-    return m.group()
+    if m is not None:
+        return m.group()
+    else:
+        m = re.search("[0-9]+\.[0-9]+", inString)
+        if m is not None:
+            return m.group()
+        else:
+            return inString
 
 def serverFileEdit(inString):
     if inString is not None:
